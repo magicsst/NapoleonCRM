@@ -1,4 +1,4 @@
-@inject AppService AppService
+﻿@inject AppService AppService
 @inject ISnackbar Snackbar
 @inject HttpClient HttpClient
 @attribute [Authorize]
@@ -7,14 +7,14 @@
 {
     <MudDialog>
         <TitleContent>
-            <MudText Typo="Typo.h6">Update User</MudText>
+            <MudText Typo="Typo.h6">Ενημέρωση User</MudText>
         </TitleContent>
         <DialogContent>
             <MudText>Loading...</MudText>
         </DialogContent>
         <DialogActions>
-            <MudButton OnClick="OnCancel">Cancel</MudButton>
-            <MudButton Color="Color.Primary" Disabled="true">Update</MudButton>
+            <MudButton OnClick="OnCancel">Ακύρωση</MudButton>
+            <MudButton Color="Color.Primary" Disabled="true">Ενημέρωση</MudButton>
         </DialogActions>
     </MudDialog>
 }
@@ -24,16 +24,16 @@ else
         <DataAnnotationsValidator />
         <MudDialog>
             <TitleContent>
-                <MudText Typo="Typo.h6">Update User</MudText>
+                <MudText Typo="Typo.h6">Ενημέρωση User</MudText>
             </TitleContent>
             <DialogContent>
                 <MudNumericField @bind-Value="user.Id" For="@(() => user.Id)" Label="User Id" ReadOnly="true" HideSpinButtons="true" />
-                <MudTextField @bind-Value="user.Email" For="@(() => user.Email)" Label="User Name" ReadOnly="true" />
-                <MudTextField @bind-Value="user.PhoneNumber" For="@(() => user.PhoneNumber)" Label="Phone Number" ReadOnly="true" />
-                <MudTextField @bind-Value="updateUser.FirstName" For="@(() => updateUser.FirstName)" Label="First Name" />
-                <MudTextField @bind-Value="updateUser.LastName" For="@(() => updateUser.LastName)" Label="Last Name" />
-                <MudTextField @bind-Value="updateUser.Title" For="@(() => updateUser.Title)" Label="Title" />
-                <MudTextField @bind-Value="updateUser.CompanyName" For="@(() => updateUser.CompanyName)" Label="Company Name" />
+                <MudTextField @bind-Value="user.Email" For="@(() => user.Email)" Label="Όνομα Χρήστη" ReadOnly="true" />
+                <MudTextField @bind-Value="user.PhoneNumber" For="@(() => user.PhoneNumber)" Label="Αριθμος Τηλεφώνου" ReadOnly="true" />
+                <MudTextField @bind-Value="updateUser.FirstName" For="@(() => updateUser.FirstName)" Label="Όνομα" />
+                <MudTextField @bind-Value="updateUser.LastName" For="@(() => updateUser.LastName)" Label="Επίθετο" />
+                <MudTextField @bind-Value="updateUser.Title" For="@(() => updateUser.Title)" Label="Τίτλος" />
+                <MudTextField @bind-Value="updateUser.CompanyName" For="@(() => updateUser.CompanyName)" Label="Εταιρεία" />
                 <MudFileUpload T="IBrowserFile" FilesChanged="@(async args => updateUser.Photo = await UploadImageAsync(args))" Accept=".png,.jpg,.jpeg">
                     <ActivatorContent>
                         <MudIconButton Color="Color.Info"
@@ -47,8 +47,8 @@ else
                 }
             </DialogContent>
             <DialogActions>
-                <MudButton OnClick="OnCancel">Cancel</MudButton>
-                <MudButton ButtonType="ButtonType.Submit" Color="Color.Primary">Update</MudButton>
+                <MudButton OnClick="OnCancel">Ακύρωση</MudButton>
+                <MudButton ButtonType="ButtonType.Submit" Color="Color.Primary">Ενημέρωση</MudButton>
             </DialogActions>
         </MudDialog>
     </EditForm>

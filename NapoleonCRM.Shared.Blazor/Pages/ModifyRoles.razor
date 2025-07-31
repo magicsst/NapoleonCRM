@@ -1,4 +1,4 @@
-@inject AppService AppService
+﻿@inject AppService AppService
 @inject ISnackbar Snackbar
 @inject HttpClient HttpClient
 @attribute [Authorize]
@@ -13,8 +13,8 @@
             <MudText>Loading...</MudText>
         </DialogContent>
         <DialogActions>
-            <MudButton OnClick="OnCancel">Cancel</MudButton>
-            <MudButton Color="Color.Primary" Disabled="true">Update</MudButton>
+            <MudButton OnClick="OnCancel">Ακύρωση</MudButton>
+            <MudButton Color="Color.Primary" Disabled="true">Ενημέρωση</MudButton>
         </DialogActions>
     </MudDialog>
 }
@@ -31,8 +31,8 @@ else
                 </MudSelect>
             </DialogContent>
             <DialogActions>
-                <MudButton OnClick="OnCancel">Cancel</MudButton>
-                <MudButton ButtonType="ButtonType.Submit" Color="Color.Primary">Update</MudButton>
+                <MudButton OnClick="OnCancel">Ακύρωση</MudButton>
+                <MudButton ButtonType="ButtonType.Submit" Color="Color.Primary">Ενημέρωση</MudButton>
             </DialogActions>
         </MudDialog>
     </EditForm>
