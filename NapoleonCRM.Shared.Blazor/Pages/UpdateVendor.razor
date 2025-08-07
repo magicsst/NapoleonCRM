@@ -1,4 +1,4 @@
-@inject AppService AppService
+﻿@inject AppService AppService
 @inject ISnackbar Snackbar
 @inject HttpClient HttpClient
 
@@ -6,14 +6,14 @@
 {
     <MudDialog>
         <TitleContent>
-            <MudText Typo="Typo.h6">Update Vendor</MudText>
+            <MudText Typo="Typo.h6">Ενημέρωση Vendor</MudText>
         </TitleContent>
         <DialogContent>
             <MudText>Loading...</MudText>
         </DialogContent>
         <DialogActions>
-            <MudButton OnClick="OnCancel">Cancel</MudButton>
-            <MudButton Color="Color.Primary" Disabled="true">Update</MudButton>
+            <MudButton OnClick="OnCancel">Ακύρωση</MudButton>
+            <MudButton Color="Color.Primary" Disabled="true">Ενημέρωση</MudButton>
         </DialogActions>
     </MudDialog>
 }
@@ -23,13 +23,13 @@ else
         <DataAnnotationsValidator />
         <MudDialog>
             <TitleContent>
-                <MudText Typo="Typo.h6">Update Vendor</MudText>
+                <MudText Typo="Typo.h6">Ενημέρωση Vendor</MudText>
             </TitleContent>
             <DialogContent>
                 <MudNumericField @bind-Value="record.Id" For="@(() => record.Id)" Label="Id" ReadOnly="true" />
-                <MudTextField @bind-Value="record.Name" For="@(() => record.Name)" Label="Name" />
-                <MudTextField @bind-Value="record.ContactName" For="@(() => record.ContactName)" Label="ContactName" />
-                <MudNumericField @bind-Value="record.Phone" For="@(() => record.Phone)" Label="Phone" />
+                <MudTextField @bind-Value="record.Name" For="@(() => record.Name)" Label="Όνομα" />
+                <MudTextField @bind-Value="record.ContactName" For="@(() => record.ContactName)" Label="Όνομα Επαφής" />
+                <MudNumericField @bind-Value="record.Phone" For="@(() => record.Phone)" Label="Τηλέφωνο" />
                 <MudTextField @bind-Value="record.Email" For="@(() => record.Email)" Label="Email" />
                 <MudFileUpload T="IBrowserFile" FilesChanged="@(async args => record.Logo = await UploadImageAsync(args, 256, 256))" Accept=".png,.jpg,.jpeg">
                     <ActivatorContent>
@@ -42,15 +42,15 @@ else
                 {
                     <MudImage Src="@GetAbsoluteUri(record.Logo)" Style="width:128px;height:128px;object-fit:contain;" Class="mt-1" />
                 }
-                <MudTextField @bind-Value="record.Notes" For="@(() => record.Notes)" Label="Notes" />
-                <MudSelect @bind-Value="record.AddressId" For="@(() => record.AddressId)" Label="Address" AnchorOrigin="Origin.BottomCenter">
+                <MudTextField @bind-Value="record.Notes" For="@(() => record.Notes)" Label="Σημειώσεις" />
+                <MudSelect @bind-Value="record.AddressId" For="@(() => record.AddressId)" Label="Διεύθυνση" AnchorOrigin="Origin.BottomCenter">
                     <MudSelectItem T="long?" Value="null" />
                     @foreach (var address in addressArray ?? Enumerable.Empty<Address>())
                     {
                         <MudSelectItem Value="@address.Id">@address.City</MudSelectItem>
                     }
                 </MudSelect>
-                <MudSelect T="long?" Label="Product" MultiSelection="true" @bind-SelectedValues="productValues" MultiSelectionTextFunc="@(x => string.Join(", ", x.Select(s => productArray?.FirstOrDefault(i => i.Id?.ToString() == s)?.Name)))" AnchorOrigin="Origin.BottomCenter">
+                <MudSelect T="long?" Label="Προιόν" MultiSelection="true" @bind-SelectedValues="productValues" MultiSelectionTextFunc="@(x => string.Join(", ", x.Select(s => productArray?.FirstOrDefault(i => i.Id?.ToString() == s)?.Name)))" AnchorOrigin="Origin.BottomCenter">
                     @foreach (var product in productArray ?? Enumerable.Empty<Product>())
                     {
                         <MudSelectItem T="long?" Value="@product.Id">@product.Name</MudSelectItem>
@@ -65,8 +65,8 @@ else
 
             </DialogContent>
             <DialogActions>
-                <MudButton OnClick="OnCancel">Cancel</MudButton>
-                <MudButton ButtonType="ButtonType.Submit" Color="Color.Primary">Update</MudButton>
+                <MudButton OnClick="OnCancel">Ακύρωση</MudButton>
+                <MudButton ButtonType="ButtonType.Submit" Color="Color.Primary">Ενημέρωση</MudButton>
             </DialogActions>
         </MudDialog>
     </EditForm>
