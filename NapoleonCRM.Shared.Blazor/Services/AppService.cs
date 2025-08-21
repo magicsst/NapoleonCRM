@@ -18,6 +18,7 @@ public class AppService(
             = authenticationStateProvider as IdentityAuthenticationStateProvider
                 ?? throw new InvalidOperationException();
 
+    #region "Others"
     private static async Task HandleResponseErrorsAsync(HttpResponseMessage response)
     {
         if (!response.IsSuccessStatusCode
@@ -295,98 +296,6 @@ public class AppService(
             ?? throw new Exception("Not authorized");
 
         HttpRequestMessage request = new(HttpMethod.Delete, $"/api/customer/{key}");
-        request.Headers.Authorization = new("Bearer", token);
-
-        var response = await httpClient.SendAsync(request);
-
-        await HandleResponseErrorsAsync(response);
-    }
-
-    public async Task<Address[]?> ListAddressAsync()
-    {
-        var token = await authenticationStateProvider.GetBearerTokenAsync()
-            ?? throw new Exception("Not authorized");
-
-        HttpRequestMessage request = new(HttpMethod.Get, "/api/address");
-        request.Headers.Authorization = new("Bearer", token);
-
-        var response = await httpClient.SendAsync(request);
-
-        await HandleResponseErrorsAsync(response);
-
-        return await response.Content.ReadFromJsonAsync<Address[]>();
-    }
-
-    public Task<ODataResult<Address>?> ListAddressODataAsync(
-        int? top = null,
-        int? skip = null,
-        string? orderby = null,
-        string? filter = null,
-        bool count = false,
-        string? expand = null)
-    {
-        return GetODataAsync<Address>("Address", top, skip, orderby, filter, count, expand);
-    }
-
-    public async Task<Address?> GetAddressByIdAsync(long key)
-    {
-        var token = await authenticationStateProvider.GetBearerTokenAsync()
-            ?? throw new Exception("Not authorized");
-
-        HttpRequestMessage request = new(HttpMethod.Get, $"/api/address/{key}");
-        request.Headers.Authorization = new("Bearer", token);
-
-        var response = await httpClient.SendAsync(request);
-
-        await HandleResponseErrorsAsync(response);
-
-        return await response.Content.ReadFromJsonAsync<Address>();
-    }
-
-    public async Task UpdateAddressAsync(long key, Address data)
-    {
-        if (data.CreatedDate == null)
-            data.CreatedDate = DateTime.UtcNow;
-        data.ModifiedDate = DateTime.UtcNow;
-
-        var token = await authenticationStateProvider.GetBearerTokenAsync()
-            ?? throw new Exception("Not authorized");
-
-        HttpRequestMessage request = new(HttpMethod.Put, $"/api/address/{key}");
-        request.Headers.Authorization = new("Bearer", token);
-        request.Content = JsonContent.Create(data);
-
-        var response = await httpClient.SendAsync(request);
-
-        await HandleResponseErrorsAsync(response);
-    }
-
-    public async Task<Address?> InsertAddressAsync(Address data)
-    {
-        if (data.CreatedDate == null)
-            data.CreatedDate = DateTime.UtcNow;
-        data.ModifiedDate = DateTime.UtcNow;
-
-        var token = await authenticationStateProvider.GetBearerTokenAsync()
-            ?? throw new Exception("Not authorized");
-
-        HttpRequestMessage request = new(HttpMethod.Post, "/api/address");
-        request.Headers.Authorization = new("Bearer", token);
-        request.Content = JsonContent.Create(data);
-
-        var response = await httpClient.SendAsync(request);
-
-        await HandleResponseErrorsAsync(response);
-
-        return await response.Content.ReadFromJsonAsync<Address>();
-    }
-
-    public async Task DeleteAddressAsync(long key)
-    {
-        var token = await authenticationStateProvider.GetBearerTokenAsync()
-            ?? throw new Exception("Not authorized");
-
-        HttpRequestMessage request = new(HttpMethod.Delete, $"/api/address/{key}");
         request.Headers.Authorization = new("Bearer", token);
 
         var response = await httpClient.SendAsync(request);
@@ -1553,4 +1462,104 @@ public class AppService(
 
         await HandleResponseErrorsAsync(response);
     }
+
+    #endregion
+
+    #region "Address Sample"
+    public async Task<Address[]?> ListAddressAsync()
+    {
+        var token = await authenticationStateProvider.GetBearerTokenAsync()
+            ?? throw new Exception("Not authorized");
+
+        HttpRequestMessage request = new(HttpMethod.Get, "/api/address");
+        request.Headers.Authorization = new("Bearer", token);
+
+        var response = await httpClient.SendAsync(request);
+
+        await HandleResponseErrorsAsync(response);
+
+        return await response.Content.ReadFromJsonAsync<Address[]>();
+    }
+
+    public Task<ODataResult<Address>?> ListAddressODataAsync(
+        int? top = null,
+        int? skip = null,
+        string? orderby = null,
+        string? filter = null,
+        bool count = false,
+        string? expand = null)
+    {
+        return GetODataAsync<Address>("Address", top, skip, orderby, filter, count, expand);
+    }
+
+    public async Task<Address?> GetAddressByIdAsync(long key)
+    {
+        var token = await authenticationStateProvider.GetBearerTokenAsync()
+            ?? throw new Exception("Not authorized");
+
+        HttpRequestMessage request = new(HttpMethod.Get, $"/api/address/{key}");
+        request.Headers.Authorization = new("Bearer", token);
+
+        var response = await httpClient.SendAsync(request);
+
+        await HandleResponseErrorsAsync(response);
+
+        return await response.Content.ReadFromJsonAsync<Address>();
+    }
+
+    public async Task UpdateAddressAsync(long key, Address data)
+    {
+        if (data.CreatedDate == null)
+            data.CreatedDate = DateTime.UtcNow;
+        data.ModifiedDate = DateTime.UtcNow;
+
+        var token = await authenticationStateProvider.GetBearerTokenAsync()
+            ?? throw new Exception("Not authorized");
+
+        HttpRequestMessage request = new(HttpMethod.Put, $"/api/address/{key}");
+        request.Headers.Authorization = new("Bearer", token);
+        request.Content = JsonContent.Create(data);
+
+        var response = await httpClient.SendAsync(request);
+
+        await HandleResponseErrorsAsync(response);
+    }
+
+    public async Task<Address?> InsertAddressAsync(Address data)
+    {
+        if (data.CreatedDate == null)
+            data.CreatedDate = DateTime.UtcNow;
+        data.ModifiedDate = DateTime.UtcNow;
+
+        var token = await authenticationStateProvider.GetBearerTokenAsync()
+            ?? throw new Exception("Not authorized");
+
+        HttpRequestMessage request = new(HttpMethod.Post, "/api/address");
+        request.Headers.Authorization = new("Bearer", token);
+        request.Content = JsonContent.Create(data);
+
+        var response = await httpClient.SendAsync(request);
+
+        await HandleResponseErrorsAsync(response);
+
+        return await response.Content.ReadFromJsonAsync<Address>();
+    }
+
+    public async Task DeleteAddressAsync(long key)
+    {
+        var token = await authenticationStateProvider.GetBearerTokenAsync()
+            ?? throw new Exception("Not authorized");
+
+        HttpRequestMessage request = new(HttpMethod.Delete, $"/api/address/{key}");
+        request.Headers.Authorization = new("Bearer", token);
+
+        var response = await httpClient.SendAsync(request);
+
+        await HandleResponseErrorsAsync(response);
+    }
+    #endregion
+
+
+
+
 }

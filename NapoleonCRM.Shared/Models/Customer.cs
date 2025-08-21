@@ -27,6 +27,28 @@ public class Customer
     [DataMember]
     public long? ContactId { get; set; }
 
+    
+    
+    [DataMember]
+    public long? CountryId { get; set; }
+
+    [DataMember]
+    public Country? Country { get; set; }
+
+    [DataMember]
+    public long? CurrencyId { get; set; }
+
+    [DataMember]
+    public Currency? Currency { get; set; }
+    
+
+    [DataMember]
+    public long? CategoryFirstId { get; set; }
+
+    [DataMember]
+    public CategoryFirst? CategoryFirst { get; set; }
+    
+
     [DataMember]
     public string? Logo { get; set; }
 
@@ -44,5 +66,7 @@ public class Customer
 
     [DataMember]
     public DateTime ModifiedDate { get; set; }
+
+
 
 }

@@ -54,6 +54,12 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public DbSet<TodoTask> TodoTask => Set<TodoTask>();
     public DbSet<Reward> Reward => Set<Reward>();
 
+    public DbSet<Country> Country => Set<Country>();
+
+    public DbSet<Currency> Currency => Set<Currency>();
+
+    public DbSet<CategoryFirst> CategoryFirst => Set<CategoryFirst>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -71,7 +77,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             .HasConversion<double>();
         modelBuilder.Entity<Lead>()
             .Property(e => e.PotentialValue)
-            .HasPrecision(19, 4);
+            .HasPrecision(19, 4); 
         modelBuilder.Entity<Lead>()
             .HasOne(x => x.Address);
         modelBuilder.Entity<Lead>()
@@ -112,5 +118,14 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         modelBuilder.Entity<Reward>()
             .Property(e => e.ConversionRate)
             .HasPrecision(19, 4);
+
+        modelBuilder.Entity<Customer>()
+            .HasOne(x => x.Country); 
+
+        modelBuilder.Entity<Customer>()   
+            .HasOne(x => x.Currency);
+
+        modelBuilder.Entity<Customer>()  
+            .HasOne(x => x.CategoryFirst);
     }
 }

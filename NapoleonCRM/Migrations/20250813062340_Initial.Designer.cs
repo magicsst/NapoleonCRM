@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NapoleonCRM.Data;
 
@@ -11,9 +12,11 @@ using NapoleonCRM.Data;
 namespace NapoleonCRM.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250813062340_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -275,22 +278,6 @@ namespace NapoleonCRM.Migrations
                     b.ToTable("Address");
                 });
 
-            modelBuilder.Entity("NapoleonCRM.Shared.Models.CategoryFirst", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CategoryFirst");
-                });
-
             modelBuilder.Entity("NapoleonCRM.Shared.Models.Contact", b =>
                 {
                     b.Property<long>("Id")
@@ -360,23 +347,6 @@ namespace NapoleonCRM.Migrations
                     b.ToTable("Country");
                 });
 
-            modelBuilder.Entity("NapoleonCRM.Shared.Models.Currency", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Currency");
-                });
-
             modelBuilder.Entity("NapoleonCRM.Shared.Models.Customer", b =>
                 {
                     b.Property<long>("Id")
@@ -387,12 +357,6 @@ namespace NapoleonCRM.Migrations
 
                     b.Property<long?>("AddressId")
                         .HasColumnType("bigint");
-
-                    b.Property<long?>("CategoryFirstId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int?>("CategoryFirstId1")
-                        .HasColumnType("int");
 
                     b.Property<long?>("ContactId")
                         .HasColumnType("bigint");
@@ -405,12 +369,6 @@ namespace NapoleonCRM.Migrations
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<long?>("CurrencyId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int?>("CurrencyId1")
-                        .HasColumnType("int");
 
                     b.Property<string>("Industry")
                         .HasColumnType("nvarchar(max)");
@@ -434,11 +392,7 @@ namespace NapoleonCRM.Migrations
 
                     b.HasIndex("AddressId");
 
-                    b.HasIndex("CategoryFirstId1");
-
                     b.HasIndex("CountryId1");
-
-                    b.HasIndex("CurrencyId1");
 
                     b.ToTable("Customer");
                 });
@@ -991,25 +945,13 @@ namespace NapoleonCRM.Migrations
                         .WithMany()
                         .HasForeignKey("AddressId");
 
-                    b.HasOne("NapoleonCRM.Shared.Models.CategoryFirst", "CategoryFirst")
-                        .WithMany()
-                        .HasForeignKey("CategoryFirstId1");
-
                     b.HasOne("NapoleonCRM.Shared.Models.Country", "Country")
                         .WithMany()
                         .HasForeignKey("CountryId1");
 
-                    b.HasOne("NapoleonCRM.Shared.Models.Currency", "Currency")
-                        .WithMany()
-                        .HasForeignKey("CurrencyId1");
-
                     b.Navigation("Address");
 
-                    b.Navigation("CategoryFirst");
-
                     b.Navigation("Country");
-
-                    b.Navigation("Currency");
                 });
 
             modelBuilder.Entity("NapoleonCRM.Shared.Models.Lead", b =>

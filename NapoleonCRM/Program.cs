@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.HttpOverrides;
+﻿using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.OData;
 using Microsoft.AspNetCore.RateLimiting;
@@ -15,6 +15,7 @@ using NapoleonCRM.Models;
 using NapoleonCRM.Services;
 using NapoleonCRM.Shared.Models;
 using Serilog;
+using NapoleonCRM.Controllers;
 
 Environment.CurrentDirectory = AppContext.BaseDirectory;
 
@@ -50,6 +51,9 @@ modelBuilder.EntitySet<Sale>("Sale");
 modelBuilder.EntitySet<SupportCase>("SupportCase");
 modelBuilder.EntitySet<TodoTask>("TodoTask");
 modelBuilder.EntitySet<ApplicationUserDto>("User");
+modelBuilder.EntitySet<Country>("Country");
+modelBuilder.EntitySet<Currency>("Currency");
+modelBuilder.EntitySet<CategoryFirst>("CategoryFirst");
 
 builder.Services.AddControllers()
     .AddOData(options => options.EnableQueryFeatures().AddRouteComponents("odata", modelBuilder.GetEdmModel()))
@@ -93,7 +97,7 @@ builder.Services.AddAuthorization();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    options.UseSqlite(builder.Configuration.GetConnectionString("ApplicationDbContext"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ApplicationDbContext"));
 });
 
 builder.Services.AddRazorPages();
@@ -196,6 +200,12 @@ if (app.Environment.IsDevelopment())
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "MudBlazor CRM API V1");
     });
 }
+
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseSwagger();
+//    app.UseSwaggerUI();
+//};
 
 app.UseHttpsRedirection();
 app.UseForwardedHeaders();
@@ -581,4 +591,5 @@ using (var scope = app.Services.CreateScope())
     }
 }
 app.UseRateLimiter();
+
 app.Run();
